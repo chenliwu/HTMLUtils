@@ -5,44 +5,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>获取select选中项</title>
-    
+
 </head>
 <body>
-    
-    <div>
-        <select name="city" id="citySelectElement">
-            <option value="">请选择城市</option>
-            <option value="naning">南宁市</option>
-            <option value="guiping">桂平市</option>
-            <option value="hezhou">贺州市</option>
-        </select>
 
-        <button onclick="getSelectValue()">获取select选中项</button>
-    </div>
+<div>
+    <select name="city" id="citySelectElement">
+        <!--<option value="">请选择城市</option>-->
+        <!--<option value="naning">南宁市</option>-->
+        <!--<option value="guiping">桂平市</option>-->
+        <!--<option value="hezhou">贺州市</option>-->
+    </select>
 
-    <script src="./../../js/jquery-2.1.0.min.js"></script>
-    <script> 
-        $(function(){
-            
-        });
+    <button onclick="getSelectValue()">获取select选中项</button>
+</div>
 
-        //获取select选中项
-        function getSelectValue(){
-            //var selectedValue = $("#citySelectElement").val();
-            //$("#citySelectElement").val()等价于$("#citySelectElement :checked").val()
-            var selectedValue = $("#citySelectElement :checked").val();
-            if(selectedValue.length == 0){
-                alert("当前未选择城市");
-                return;
-            }
-            //alert("select选中项的valuew值：" + selectedValue);
-            
-            //获取select中选中的option项
-            var selectedOptionObj =  $("#citySelectElement :checked");
-            alert("选中项：value = "+ selectedOptionObj.val()+", text = "+ selectedOptionObj.text());
-            
+<script src="./../../js/jquery-2.1.0.min.js"></script>
+<script>
+    $(function () {
+        initSelectElement();
+    });
+
+    //获取select选中项
+    function getSelectValue() {
+        //var selectedValue = $("#citySelectElement").val();
+        //$("#citySelectElement").val()等价于$("#citySelectElement :checked").val()
+        var selectedValue = $("#citySelectElement :checked").val();
+        if (selectedValue.length == 0) {
+            alert("当前未选择城市");
+            return;
         }
+        //alert("select选中项的valuew值：" + selectedValue);
 
-    </script>
+        //获取select中选中的option项
+        var selectedOptionObj = $("#citySelectElement :checked");
+        alert("选中项：value = " + selectedOptionObj.val() + ", text = " + selectedOptionObj.text());
+    }
+
+    //JS代码动态渲染select数据
+    function initSelectElement() {
+        var cityLisy = [
+            ["nanning", "南宁市"],
+            ["guiping", "桂平市"],
+            ["hezhou", "贺州市"]
+        ];
+        var html = "";
+        html += '<option value="">请选择城市</option>';
+        for (var i = 0; i < cityLisy.length; i++) {
+            html += '<option value="' + cityLisy[i][0] + '">' + cityLisy[i][1] + '</option>';
+        }
+        $("#citySelectElement").html(html);
+    }
+
+</script>
 </body>
 </html>
