@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>获取select选中项</title>
-
+    <script src="./../../js/jquery-2.1.0.min.js"></script>
 </head>
 <body>
 
@@ -16,14 +16,23 @@
         <!--<option value="guiping">桂平市</option>-->
         <!--<option value="hezhou">贺州市</option>-->
     </select>
-
     <button onclick="getSelectValue()">获取select选中项</button>
 </div>
 
-<script src="./../../js/jquery-2.1.0.min.js"></script>
+
 <script>
     $(function () {
         initSelectElement();
+
+        $("#citySelectElement").change(function () {
+            var selectedValue = $(this).val();
+            if (selectedValue.length == 0) {
+                alert("当前未选择城市");
+                return;
+            }
+            alert("select选中项的valuew值：" + selectedValue);
+        });
+
     });
 
     //获取select选中项
