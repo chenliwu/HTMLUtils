@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>金钱格式化</title>
+</head>
+
+<body>
+
+    <div>
+        <input id="inputElement" onblur="this.value=moneyFormat(this.value)" type="text">
+        <button id="test">将金钱格式转化成数字</button>
+    </div>
+
+    <script src="./currency/currency.min.js"></script>
+    <script src="./../js/jquery-2.1.0.min.js"></script>
+    <script>
+        $(function () {
+            //监听输入文本变化
+            // $("input[id='inputElement']").bind('input propertychange', function () {
+            //     //做一些事情
+            //     var val = $(this).val();
+            //     val = currency(val, { symbol: ',' }).format();
+            //     console.log(val);
+            // })
+
+            $("#test").click(function(){
+                var val = $("#inputElement").val();
+                val = currency(val);
+                alert(val);
+            });
+
+        });
+
+        //金钱格式化
+        function moneyFormat(val) {
+            return currency(val, { symbol: ',' }).format();
+        }
+
+    </script>
+</body>
+
+</html>
