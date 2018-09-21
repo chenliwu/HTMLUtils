@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./../js/jquery-2.1.0.min.js"></script>
+</head>
+<body>
+    <form action="">
+        请输入网址：
+        <input id="inputElement" type="text">
+        <br>
+        <button id="test">校验</button>
+    </form>
+    <script>
+        
+
+        //var reg = /^(http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&:/~\+#]*[\w\-\@?^=%&/~\+#])?$/;
+        var reg = /^(http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?$/;
+                
+        $(function(){
+            $("#test").click(function(){
+                var val = $("#inputElement").val();
+                if(reg.test(val)){
+                    alert("校验通过");
+                }else{
+                    alert("校验失败");
+                }
+            });
+        });
+    </script>
+</body>
+</html>
