@@ -30,12 +30,24 @@
 
         function setSelected() {
             var name = "南宁市";
-            $("#citySelectElement").find("option").each(function (data) {
-                var $this = $(this);
-                if ($this.text() == name) {
-                    $this.attr("selected", true);
+            // $("#citySelectElement").find("option").each(function (data) {
+            //     var $this = $(this);
+            //     if ($this.text() == name) {
+            //         $this.attr("selected", true);
+            //     }
+            // });
+
+            var options = $("#citySelectElement").find("option");
+            console.log("length:" + options.length);
+            if (options) {
+                for (var i = 0; i < options.length; i++) {
+                    if ($(options[i]).text() == name) {
+                        $(options[i]).attr("selected", true);
+                        break;
+                    }
                 }
-            });
+            }
+
         }
 
 
