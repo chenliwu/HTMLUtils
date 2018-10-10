@@ -42,7 +42,9 @@
             if (options) {
                 for (var i = 0; i < options.length; i++) {
                     if ($(options[i]).text() == name) {
-                        $(options[i]).attr("selected", true);
+                        //注意attr添加属性，props是设置属性
+                        //$(options[i]).attr("selected", true);
+                        $(options[i]).props("selected", true);
                         break;
                     }
                 }
