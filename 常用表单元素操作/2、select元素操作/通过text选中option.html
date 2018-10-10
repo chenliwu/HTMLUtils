@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>通过text选中option</title>
+    <script src="./../../js/jquery-2.1.0.min.js"></script>
+</head>
+
+<body>
+
+    <div>
+        <select name="city" id="citySelectElement">
+            <option value="">请选择城市</option>
+            <option value="naning">南宁市</option>
+            <option value="guiping">桂平市</option>
+            <option value="hezhou">贺州市</option>
+        </select>
+        <button onclick="setSelected()">通过text选中option</button>
+    </div>
+
+
+    <script>
+        $(function () {
+
+
+        });
+
+        function setSelected() {
+            var name = "南宁市";
+            $("#citySelectElement").find("option").each(function (data) {
+                var $this = $(this);
+                if ($this.text() == name) {
+                    $this.attr("selected", true);
+                }
+            });
+        }
+
+
+
+    </script>
+</body>
+
+</html>
