@@ -27,8 +27,9 @@
             //     console.log(val);
             // })
 
-            $("#test").click(function(){
+            $("#test").click(function () {
                 var val = $("#inputElement").val();
+                //currency将金钱格式转化回数字模式
                 val = currency(val);
                 alert(val);
             });

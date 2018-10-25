@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>获取上传文件的文件名及扩展名</title>
+    <script src="./../js/jquery-2.1.0.min.js"></script>
+</head>
+
+<body>
+
+    <input type="file" name="uploadFile" id="uploadFileElement" value="" />
+    <button id="showInfoElement">显示文件相关信息</button>
+
+    <div id="showFileName">
+        <!-- 显示文件名称 -->
+    </div>
+    <div id="showFileSuffixName">
+        <!-- 显示文件后缀名 -->
+    </div>
+
+    <script>
+
+        $(function () {
+            showInfoElement.onclick = function () {
+                var uploadFileElement = document.getElementById('uploadFileElement');
+                var showInfoElement = document.getElementById('showInfoElement');
+                //获取文件上传文件的文件名和扩展名
+                if (uploadFileElement.files[0] == undefined) {
+                    alert('未上传文件！');
+                } else {
+                    //上传文件的文件名
+                    $("#showFileName").html("文件名称：" + uploadFileElement.files[0].name);
+                }
+                //获取上传文件的扩展名
+                var file = uploadFileElement.value;
+                var index = file.lastIndexOf('.');
+                var suffixName = file.substring(index).toLowerCase();
+                $("#showFileSuffixName").html("文件后缀名：" + suffixName);
+                //alert(suffixName);
+            }
+        });
+    </script>
+
+</body>
+
+</html>
