@@ -13,6 +13,7 @@
 
     <input type="file" name="uploadFile" id="uploadFileElement" value="" />
     <button id="showInfoElement">显示文件相关信息</button>
+    <button id="showFileTypeInfoElement">显示文件类型信息</button>
 
     <div id="showFileName">
         <!-- 显示文件名称 -->
@@ -20,13 +21,27 @@
     <div id="showFileSuffixName">
         <!-- 显示文件后缀名 -->
     </div>
+    <div id="showFileType">
+        <!-- 
+            显示文件类型，file.type：
+            （1）图片文件：image/jpeg、image/jpg、image/png
+            （2）PDF文件：application/pdf
+            （3）WORD文档：application/msword(2010版本以后)、application/msword（2003）
+            （4）EXCEL文件：application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;（2010版本后）
+                           application/vnd.ms-excel
+            （5）RAR、ZIP压缩文件：file.type值为空；
+        -->
+    </div>
+
+    <div id="showFileTypeInfo">
+
+    </div>
 
     <script>
 
         $(function () {
-            showInfoElement.onclick = function () {
+            $("#showInfoElement").click(function () {
                 var uploadFileElement = document.getElementById('uploadFileElement');
-                var showInfoElement = document.getElementById('showInfoElement');
                 //获取文件上传文件的文件名和扩展名
                 if (uploadFileElement.files[0] == undefined) {
                     alert('未上传文件！');
@@ -34,14 +49,91 @@
                     //上传文件的文件名
                     $("#showFileName").html("文件名称：" + uploadFileElement.files[0].name);
                 }
-                //获取上传文件的扩展名
-                var file = uploadFileElement.value;
-                var index = file.lastIndexOf('.');
-                var suffixName = file.substring(index).toLowerCase();
+                //获取上传文件的后缀名
+                var fileName = uploadFileElement.files[0].name;
+                var index = fileName.lastIndexOf('.');
+                var suffixName = fileName.substring(index).toLowerCase();
                 $("#showFileSuffixName").html("文件后缀名：" + suffixName);
-                //alert(suffixName);
-            }
+
+                //显示文件类型
+                var type = uploadFileElement.files[0].type;
+                $("#showFileType").html("文件类型：" + type);
+            });
+
+            $("#showFileTypeInfoElement").click(function () {
+                var uploadFileElement = document.getElementById('uploadFileElement');
+                if (uploadFileElement.files.length == 0) {
+                    return;
+                }
+                var file = uploadFileElement.files[0];
+                var html = "";
+                html += "是否是图片文件：" + isImgFile(file) + "<br>";
+                html += "是否是PDF文件：" + isPdfFile(file) + "<br>";
+                html += "是否是EXCEL文件：" + isExcelFile(file) + "<br>";
+                html += "是否是WORD文件：" + isWordFile(file) + "<br>";
+                html += "是否是rar、zip压缩文件：" + isRarOrZipFile(file) + "<br>";
+                $("#showFileTypeInfo").html(html);
+            });
+
+
         });
+
+
+        /**
+        * 判断文件是否是图片文件
+        */
+        function isImgFile(fileObject) {
+            var imgReg = /^image\//;
+            if (!imgReg.test(fileObject.type)) {
+                return false;
+            }
+            return true;
+        }
+
+        /**
+        * 判断文件是否是PDF文件
+        */
+        function isPdfFile(fileObject) {
+            var suffixName = fileObject.name.substring(fileObject.name.lastIndexOf('.')).toLowerCase();
+            if (suffixName == ".pdf") {
+                return true;
+            }
+            return false;
+        }
+
+        /**
+        * 判断文件是否是EXCEL文件
+        */
+        function isExcelFile(fileObject) {
+            var suffixName = fileObject.name.substring(fileObject.name.lastIndexOf('.')).toLowerCase();
+            if (suffixName == ".xls" || suffixName == ".xlsx") {
+                return true;
+            }
+            return false;
+        }
+
+        /**
+        * 判断文件是否是WORD文件
+        */
+        function isWordFile(fileObject) {
+            var suffixName = fileObject.name.substring(fileObject.name.lastIndexOf('.')).toLowerCase();
+            if (suffixName == ".docs" || suffixName == ".doc") {
+                return true;
+            }
+            return false;
+        }
+
+        /**
+        * 判断文件是否是rar、zip压缩文件
+        */
+        function isRarOrZipFile(fileObject) {
+            var suffixName = fileObject.name.substring(fileObject.name.lastIndexOf('.')).toLowerCase();
+            if (suffixName == ".rar" || suffixName == ".zip") {
+                return true;
+            }
+            return false;
+        }
+
     </script>
 
 </body>
