@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <link rel="stylesheet" href="./../../layui/css/layui.css">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>拖拽组件Example</title>
+    <script src="./../../js/jquery-2.1.0.min.js"></script>
+    <script src="./../../layui/layui.js"></script>
+    <style>
+        .itemRow {
+            height: 50px;
+            line-height: 50px;
+            border-bottom: solid 1px black;
+            border-top: solid 1px black;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="layui-container">
+
+        <h4>Shared lists</h4>
+        <div id="sortableElement">
+            <blockquote class="layui-elem-quote layui-quote-nm">Item 1</blockquote>
+            <blockquote class="layui-elem-quote layui-quote-nm">Item 2</blockquote>
+            <blockquote class="layui-elem-quote layui-quote-nm">Item 3</blockquote>
+            <blockquote class="layui-elem-quote layui-quote-nm">Item 4</blockquote>
+            <blockquote class="layui-elem-quote layui-quote-nm">Item 5</blockquote>
+        </div>
+
+    </div>
+
+
+
+
+    <script src="./js/Sortable.js"></script>
+    <script>
+        $(function () {
+            initSortableElement();
+        });
+
+        function initSortableElement() {
+            var sortableElement = document.getElementById('sortableElement');
+            new Sortable(sortableElement, {
+                ghostClass: 'blue-background-class',
+                animation: 150,
+
+                // Element dragging started
+                onStart: function (/**Event*/evt) {
+                    //evt.oldIndex;  // element index within parent
+                    console.log('onStart');
+                    console.log(evt);
+                },
+
+                // Element dragging ended
+                onEnd: function (/**Event*/evt) {
+                    var itemEl = evt.item;  // dragged HTMLElement
+                    //evt.to;    // target list
+                    //evt.from;  // previous list
+                    //evt.oldIndex;  // element's old index within old parent
+                    //evt.newIndex;  // element's new index within new parent
+                    console.log('onEnd');
+                    console.log(itemEl);
+                    console.log(evt);
+                },
+
+                // Called when dragging element changes position
+                onChange: function (/**Event*/evt) {
+                    //evt.newIndex // most likely why this event is used is to get the dragging element's current index
+                    // same properties as onEnd
+                    //console.log('onChange');
+                    //console.log(evt);
+                },
+
+            });
+        }
+    </script>
+</body>
+
+</html>
