@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script type="text/javascript" src="../../../js/jquery-2.1.0.min.js"></script>
+    <script type="text/javascript" src="../../../js/jquery-ui/jquery-ui1.js"></script>
+    <script type="text/javascript" src="../../../js/angular-1.7.7/angular.js"></script>
+    <script type="text/javascript" src="./js/sortable.js"></script>
+    <title>Document</title>
+    <style>
+        .item{
+            padding: 20px;
+            background: pink;
+            margin: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <section ng-app="sortableApp">
+        <h1>Sortable items</h1>
+        <div ng-controller="sortableController" class="section row">
+
+            <div ui-sortable="sortableOptions" ng-model="list" class="list">
+                <div ng-repeat="item in list" class="item">
+                    <input type="text" value=" {{item.name}}">
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+</body>
+
+<script>
+
+    //var myapp = angular.module('sortableApp', ['ui.sortable']);
+    var myapp = angular.module('sortableApp', ['ui.sortable']);
+
+    myapp.buildArray = function (name, size) {
+        var i, array = [];
+        for (i = 1; i <= size; i++) {
+            array.push({
+                text: name + ' ' + i,
+                value: i
+            });
+        }
+
+        return array;
+    };
+
+    myapp.controller('sortableController', function ($scope, $timeout) {
+        'use strict';
+
+        $scope.list = [{
+            "name": "allen",
+            "age": 21,
+            "i": 0
+        }, {
+            "name": "bob",
+            "age": 18,
+            "i": 1
+        }, {
+            "name": "curry",
+            "age": 25,
+            "i": 2
+        }, {
+            "name": "david",
+            "age": 30,
+            "i": 3
+        }];
+
+        $scope.sortingLog = [];
+
+        $scope.sortableOptions = {
+
+            update: function (e, ui) {
+                console.log("update");
+                //需要使用延时方法，否则会输出原始数据的顺序，可能是BUG？
+                // $timeout(function () {
+                //     var resArr = [];
+                //     for (var i = 0; i < $scope.list.length; i++) {
+                //         resArr.push($scope.list[i].i);
+                //     }
+                //     console.log('输出数组');
+                //     console.log(resArr);
+                // });
+
+            },
+
+            // called after a node is dropped
+            stop: function (e, ui) {
+                console.log('');
+                console.log('stop');
+                var resArr = [];
+                for (var i = 0; i < $scope.list.length; i++) {
+                    resArr.push($scope.list[i].i);
+                }
+                console.log('输出数组');
+                console.log(resArr);
+                // $timeout(function () {
+                //     var resArr = [];
+                //     for (var i = 0; i < $scope.list.length; i++) {
+                //         resArr.push($scope.list[i].i);
+                //     }
+                //     console.log('输出数组');
+                //     console.log(resArr);
+                // });
+            }
+        };
+    });
+
+    // myapp.controller('connectedController', function ($scope) {
+    //     $scope.leftArray = myapp.buildArray('Left', 5);
+    //     $scope.rightArray = myapp.buildArray('Right', 7);
+    //     $scope.sortableOptions = {
+    //         connectWith: '.connectedItemsExample .list'
+    //     };
+    // });
+
+</script>
+
+</html>

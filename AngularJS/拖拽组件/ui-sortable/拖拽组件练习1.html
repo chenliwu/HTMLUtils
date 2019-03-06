@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script type="text/javascript" src="../../../js/jquery-2.1.0.min.js"></script>
     <script type="text/javascript" src="../../../js/jquery-ui/jquery-ui1.js"></script>
-    <script type="text/javascript" src="../../../js/angular.js"></script>
+    <script type="text/javascript" src="../../../js/angular-1.7.7/angular.js"></script>
     <script type="text/javascript" src="./js/sortable.js"></script>
     <title>Document</title>
     <style>
@@ -55,17 +55,17 @@
         <div ng-controller="sortableController" class="section row">
             <div class="col-sm-offset-2 col-sm-4">
                 <ul ui-sortable="sortableOptions" ng-model="list" class="list">
-                    <li ng-repeat="item in list" class="item">{{item.text}}</li>
+                    <li ng-repeat="item in list" class="item">{{item.name}}</li>
                 </ul>
             </div>
-            <div class="col-sm-4">
+            <!-- <div class="col-sm-4">
                 <ul class="list logList">
                     <li ng-repeat="entry in sortingLog" class="logItem">{{entry.Text}}</li>
                 </ul>
-            </div>
+            </div> -->
         </div>
 
-        <h1>Connected items</h1>
+        <!-- <h1>Connected items</h1>
         <div ng-controller="connectedController" class="section row connectedItemsExample">
             <div class="col-sm-offset-2 col-sm-4">
                 <ul ui-sortable="sortableOptions" ng-model="leftArray" class="list">
@@ -77,7 +77,7 @@
                     <li ng-repeat="item in rightArray" class="item">{{item.text}}</li>
                 </ul>
             </div>
-        </div>
+        </div> -->
     </section>
 
 </body>
@@ -98,32 +98,67 @@
         return array;
     };
 
-    myapp.controller('sortableController', function ($scope) {
+    myapp.controller('sortableController', function ($scope, $timeout) {
         'use strict';
 
-        $scope.list = myapp.buildArray('Item', 5);
+        $scope.list = [{
+            "name": "allen",
+            "age": 21,
+            "i": 0
+        }, {
+            "name": "bob",
+            "age": 18,
+            "i": 1
+        }, {
+            "name": "curry",
+            "age": 25,
+            "i": 2
+        }, {
+            "name": "david",
+            "age": 30,
+            "i": 3
+        }];
 
         $scope.sortingLog = [];
 
         $scope.sortableOptions = {
+
+            update: function (e, ui) {
+                console.log("update");
+                //需要使用延时方法，否则会输出原始数据的顺序，可能是BUG？
+                $timeout(function () {
+                    var resArr = [];
+                    for (var i = 0; i < $scope.list.length; i++) {
+                        resArr.push($scope.list[i].i);
+                    }
+                    console.log('输出数组');
+                    console.log(resArr);
+                });
+
+            },
+
             // called after a node is dropped
             stop: function (e, ui) {
+                console.log('');
+                console.log('stop');
+                console.log(e);
+                console.log(ui);
                 var logEntry = {
                     ID: $scope.sortingLog.length + 1,
-                    Text: 'Moved element: ' + ui.item.scope().item.text
+                    Text: 'Moved element: ' + ui.item.scope().item.name
                 };
                 $scope.sortingLog.push(logEntry);
             }
         };
     });
 
-    myapp.controller('connectedController', function ($scope) {
-        $scope.leftArray = myapp.buildArray('Left', 5);
-        $scope.rightArray = myapp.buildArray('Right', 7);
-        $scope.sortableOptions = {
-            connectWith: '.connectedItemsExample .list'
-        };
-    });
+    // myapp.controller('connectedController', function ($scope) {
+    //     $scope.leftArray = myapp.buildArray('Left', 5);
+    //     $scope.rightArray = myapp.buildArray('Right', 7);
+    //     $scope.sortableOptions = {
+    //         connectWith: '.connectedItemsExample .list'
+    //     };
+    // });
 
 </script>
 

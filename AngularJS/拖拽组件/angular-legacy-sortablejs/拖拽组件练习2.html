@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- <script type="text/javascript" src="../../../js/jquery-2.1.0.min.js"></script> -->
+    <!-- <script type="text/javascript" src="../../../js/jquery-ui/jquery-ui1.js"></script> -->
+    <!-- <script type="text/javascript" src="../../../js/angular-1.7.7/angular.js"></script> -->
+    <script type="text/javascript" src="../../../js/angular-1.2.32/angular.js"></script>
+    <script type="text/javascript" src="./js/Sortable.js"></script>
+    <script type="text/javascript" src="./js/angular-legacy-sortable.js"></script>
+    <title>angular-legacy-sortablejs拖拽组件练习</title>
+    <style>
+        .item{
+            padding: 20px;
+            background: pink;
+            margin: 10px;
+        }
+    </style>
+</head>
+
+<body ng-app="exampleApp">
+    <div ng-controller="sortableController">
+        <div ng-sortable="sortableOptions" ng-model="list">
+            <div ng-repeat="item in list" class="item">
+                <input type="text" value="{{item.name}}">
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    var myapp = angular.module('exampleApp', ['ng-sortable']);
+
+    myapp.controller('sortableController', function ($scope, $timeout) {
+        'use strict';
+
+        $scope.list = [
+            {
+                "name": "allen",
+                "age": 21,
+                "i": 0
+            }, {
+                "name": "bob",
+                "age": 18,
+                "i": 1
+            }, {
+                "name": "curry",
+                "age": 25,
+                "i": 2
+            }, {
+                "name": "david",
+                "age": 30,
+                "i": 3
+            }
+        ];
+
+        $scope.sortableOptions = {
+            ghostClass: 'blue-background-class',
+            animation: 150,
+            onStart: function (event) {
+                console.log('onStart');
+            },
+        };
+    });
+
+</script>
+
+</html>
