@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>金钱格式化1</title>
+</head>
+
+<body>
+
+    <div>
+        <input id="inputElement" onblur="this.value=moneyFormat(this.value)" type="text">
+        <button id="test">将金钱格式转化成数字</button>
+    </div>
+
+    <script src="./numbro/numbro.min.js"></script>
+    <script src="./../js/jquery-2.1.0.min.js"></script>
+    <script>
+        $(function () {
+            //监听输入文本变化
+
+            $("#test").click(function () {
+                var val = $("#inputElement").val();
+                val = currency(val);
+                alert(val);
+            });
+
+        });
+
+        //金钱格式化
+        function moneyFormat(val) {
+            let formatter = {
+                thousandSeparated: true
+            };
+            return numbro(val).format('0,0.00');
+        }
+
+    </script>
+</body>
+
+</html>
